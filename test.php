@@ -7,10 +7,10 @@ class SimplePerson {
 	private $id;
 	
     function __construct($id_in,$name_in, $surname_in, $position_in) {
-        $this->name = $name_in;
+        $this->id  = $id_in;
+		$this->name = $name_in;
         $this->surname  = $surname_in;
 		$this->position  = $position_in;
-		$this->id  = $id_in;
     }
     function getName() {
         return $this->name;
@@ -32,15 +32,22 @@ class PersonAdapter {
         $this->person = $person_in;
     }
     function getPersonInfo() {
-        return 'Id: '.$this->person->getId().' Name: '.$this->person->getName().' Surname '.$this->person->getSurame().' Position '.$this->person->getPosition();
+        return 'Vardas: '.$this->person->getName().' Pavarde: '.$this->person->getSurame().' Pareigos: '.$this->person->getPosition().' ('.$this->person->getId().')';
     }
 }
 
 
+class ListPersons {
+	
+	function showpersons($persons){
+		foreach ($persons as $person){
+		  $person = new SimplePerson($person[0],$person[1], $person[2], $person[3]);
+		  $personAdapter = new PersonAdapter($person);
+		  $output .= $personAdapter->getPersonInfo().'<br>';
+		}
+		
+		return $output;
+	}
+}
 
-  $person = new SimplePerson("1","vardas", "pavarde", "pareigos");
-  $personAdapter = new PersonAdapter($person);
-  echo 'Person info: '.$personAdapter->getPersonInfo().'<br>';
 
-
-?>
